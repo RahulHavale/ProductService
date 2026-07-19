@@ -1,0 +1,24 @@
+package Store.ecommerce;
+
+import lombok.Getter;
+import lombok.Setter;
+
+import java.time.LocalDate;
+
+@Getter
+@Setter
+public class ProductRequest {
+    private String name;
+
+    private String description;
+
+    private int price;
+
+    private int stock;
+
+    private String category;
+
+    private LocalDate createdDate;
+
+    private LocalDate updateDate;
+}
