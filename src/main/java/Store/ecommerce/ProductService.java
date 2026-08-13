@@ -9,59 +9,15 @@ import java.time.LocalDate;
 import java.util.List;
 import java.util.Optional;
 
-@Service
-public class ProductService {
+public interface ProductService {
 
-    private ProductRepo productRepo;
+    ProductResponse createProduct(ProductRequest request);
 
-    private ModelMapper modelMapper;
-    ProductService(ProductRepo productRepo, ModelMapper modelMapper){
-        this.productRepo = productRepo;
-        this.modelMapper = modelMapper;
-    }
+    List<ProductResponse> getAllProducts();
 
-    public void createProduct(ProductRequest request){
-        ProductEntity productEntity = new ProductEntity();
-        productEntity.setName(request.getName());
-        productEntity.setCategory(request.getCategory());
-        productEntity.setPrice(request.getPrice());
-        productEntity.setStock(request.getStock());
-        productEntity.setDescription(request.getDescription());
-        productEntity.setCreatedDate(LocalDate.now());
+    ProductResponse getProduct(Long id);
 
-        productRepo.save(productEntity);
-    }
+    ProductResponse updateProduct(Long id, ProductRequest request);
 
-    public void updateProduct(long id, ProductRequest request) {
-        ProductEntity productEntity = productRepo.findById(id).orElse(null);
-
-        if (productEntity == null) {
-            return;
-        }
-        productEntity.setName(request.getName());
-        productEntity.setCategory(request.getCategory());
-        productEntity.setPrice(request.getPrice());
-        productEntity.setStock(request.getStock());
-        productEntity.setDescription(request.getDescription());
-        productEntity.setUpdateDate(LocalDate.now());
-
-        productRepo.save(productEntity);
-    }
-
-    public List<ProductResponse> listOfProducts(){
-        List<ProductEntity> all = productRepo.findAll();
-        Type listType = new TypeToken<List<ProductResponse>>() {}.getType();
-        List<ProductResponse> datas = modelMapper.map(all, listType);
-        return datas;
-    }
-
-    public ProductResponse searchById(long id) {
-        Optional<ProductEntity> byId = productRepo.findById(id);
-        ProductResponse map = modelMapper.map(byId, ProductResponse.class);
-        return map;
-    }
-
-    public void deleteProdById(long id){
-        productRepo.deleteById(id);
-    }
+    void deleteProduct(Long id);
 }

@@ -20,5 +20,5 @@ public class ProductRequest {
 
     private LocalDate createdDate;
 
-    private LocalDate updateDate;
+    private LocalDate updatedDate;
 }

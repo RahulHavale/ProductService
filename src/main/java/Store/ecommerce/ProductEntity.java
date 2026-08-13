@@ -27,5 +27,5 @@ public class ProductEntity {
 
     private LocalDate createdDate;
 
-    private LocalDate updateDate;
+    private LocalDate updatedDate;
 }
